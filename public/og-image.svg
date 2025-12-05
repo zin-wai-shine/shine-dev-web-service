@@ -24,27 +24,50 @@
   <circle cx="1100" cy="150" r="60" fill="#64ffda" opacity="0.06"/>
   <circle cx="150" cy="450" r="50" fill="#4fc3f7" opacity="0.05"/>
   
-  <!-- Left Side: Code Symbol </> -->
-  <g transform="translate(300, 315)">
-    <!-- Code symbol background circle -->
-    <circle r="120" fill="url(#accentGrad)"/>
-    <circle r="100" fill="none" stroke="url(#textGrad)" stroke-width="3" opacity="0.4"/>
-    <!-- Code symbol </> -->
-    <text y="35" font-family="Arial, sans-serif" font-size="120" font-weight="900" fill="url(#textGrad)" text-anchor="middle">&lt;/&gt;</text>
-  </g>
-  
-  <!-- Right Side: SHINEDEV and Web Service Text -->
-  <g transform="translate(700, 0)">
-    <!-- SHINEDEV Text -->
-    <text x="0" y="280" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#ccd6f6" text-anchor="start" letter-spacing="4">
-      <tspan fill="#ccd6f6">SHINE</tspan>
-      <tspan fill="url(#textGrad)">DEV</tspan>
+  <!-- Left Side: Modern Web Service Text -->
+  <g transform="translate(200, 0)">
+    <!-- Modern Web Service Text -->
+    <text x="0" y="280" font-family="Arial, sans-serif" font-size="85" font-weight="bold" fill="#ccd6f6" text-anchor="start" letter-spacing="2">
+      <tspan fill="#ccd6f6">Modern</tspan>
+      <tspan fill="url(#textGrad)"> Web Service</tspan>
     </text>
     
-    <!-- Web Service Subtitle -->
-    <text x="0" y="350" font-family="Arial, sans-serif" font-size="40" fill="#8892b0" text-anchor="start">Web Service</text>
-    
     <!-- Tagline -->
-    <text x="0" y="420" font-family="Arial, sans-serif" font-size="28" fill="#64ffda" text-anchor="start" opacity="0.9">Creating elegant digital experiences</text>
+    <text x="0" y="380" font-family="Arial, sans-serif" font-size="32" fill="#8892b0" text-anchor="start">Creating elegant digital experiences</text>
+    
+    <!-- Additional tagline -->
+    <text x="0" y="450" font-family="Arial, sans-serif" font-size="28" fill="#64ffda" text-anchor="start" opacity="0.9">with modern web technologies</text>
+  </g>
+  
+  <!-- Right Side: Web Page Design Icon -->
+  <g transform="translate(800, 315)">
+    <!-- Web page design icon - browser window -->
+    <g transform="translate(0, -100)">
+      <!-- Browser window frame -->
+      <rect x="-140" y="-80" width="280" height="200" rx="8" fill="#112240" stroke="url(#textGrad)" stroke-width="2" opacity="0.9"/>
+      
+      <!-- Browser header bar -->
+      <rect x="-140" y="-80" width="280" height="30" rx="8" fill="url(#accentGrad)"/>
+      
+      <!-- Browser control dots -->
+      <circle cx="-120" cy="-65" r="5" fill="#64ffda" opacity="0.6"/>
+      <circle cx="-100" cy="-65" r="5" fill="#4fc3f7" opacity="0.6"/>
+      <circle cx="-80" cy="-65" r="5" fill="#8892b0" opacity="0.4"/>
+      
+      <!-- Browser content area - website layout -->
+      <rect x="-130" y="-45" width="260" height="15" rx="2" fill="url(#textGrad)" opacity="0.3"/>
+      <rect x="-130" y="-25" width="180" height="8" rx="2" fill="#8892b0" opacity="0.4"/>
+      <rect x="-130" y="-10" width="200" height="8" rx="2" fill="#8892b0" opacity="0.3"/>
+      
+      <!-- Content boxes -->
+      <rect x="-130" y="5" width="80" height="60" rx="4" fill="url(#accentGrad)" opacity="0.5"/>
+      <rect x="-40" y="5" width="80" height="60" rx="4" fill="url(#accentGrad)" opacity="0.5"/>
+      <rect x="50" y="5" width="80" height="60" rx="4" fill="url(#accentGrad)" opacity="0.5"/>
+      
+      <!-- Bottom content lines -->
+      <rect x="-130" y="75" width="260" height="6" rx="2" fill="#8892b0" opacity="0.3"/>
+      <rect x="-130" y="88" width="220" height="6" rx="2" fill="#8892b0" opacity="0.2"/>
+      <rect x="-130" y="101" width="240" height="6" rx="2" fill="#8892b0" opacity="0.2"/>
+    </g>
   </g>
 </svg>
