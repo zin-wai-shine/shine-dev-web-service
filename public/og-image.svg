@@ -24,23 +24,27 @@
   <circle cx="1100" cy="150" r="60" fill="#64ffda" opacity="0.06"/>
   <circle cx="150" cy="450" r="50" fill="#4fc3f7" opacity="0.05"/>
   
-  <!-- Main Logo Circle -->
-  <circle cx="600" cy="250" r="100" fill="url(#accentGrad)"/>
-  <circle cx="600" cy="250" r="80" fill="none" stroke="url(#textGrad)" stroke-width="3" opacity="0.4"/>
+  <!-- Left Side: Code Symbol </> -->
+  <g transform="translate(300, 315)">
+    <!-- Code symbol background circle -->
+    <circle r="120" fill="url(#accentGrad)"/>
+    <circle r="100" fill="none" stroke="url(#textGrad)" stroke-width="3" opacity="0.4"/>
+    <!-- Code symbol </> -->
+    <text y="35" font-family="Arial, sans-serif" font-size="120" font-weight="900" fill="url(#textGrad)" text-anchor="middle">&lt;/&gt;</text>
+  </g>
   
-  <!-- Letter S in the circle -->
-  <text x="600" y="270" font-family="Arial, sans-serif" font-size="100" font-weight="900" fill="url(#textGrad)" text-anchor="middle">S</text>
-  
-  <!-- SHINEDEV Text -->
-  <text x="600" y="380" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="#ccd6f6" text-anchor="middle" letter-spacing="4">
-    <tspan fill="#ccd6f6">SHINE</tspan>
-    <tspan fill="url(#textGrad)">DEV</tspan>
-  </text>
-  
-  <!-- Subtitle -->
-  <text x="600" y="440" font-family="Arial, sans-serif" font-size="32" fill="#8892b0" text-anchor="middle">Web Service</text>
-  
-  <!-- Tagline -->
-  <text x="600" y="500" font-family="Arial, sans-serif" font-size="24" fill="#64ffda" text-anchor="middle" opacity="0.9">Creating elegant digital experiences</text>
+  <!-- Right Side: SHINEDEV and Web Service Text -->
+  <g transform="translate(700, 0)">
+    <!-- SHINEDEV Text -->
+    <text x="0" y="280" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#ccd6f6" text-anchor="start" letter-spacing="4">
+      <tspan fill="#ccd6f6">SHINE</tspan>
+      <tspan fill="url(#textGrad)">DEV</tspan>
+    </text>
+    
+    <!-- Web Service Subtitle -->
+    <text x="0" y="350" font-family="Arial, sans-serif" font-size="40" fill="#8892b0" text-anchor="start">Web Service</text>
+    
+    <!-- Tagline -->
+    <text x="0" y="420" font-family="Arial, sans-serif" font-size="28" fill="#64ffda" text-anchor="start" opacity="0.9">Creating elegant digital experiences</text>
+  </g>
 </svg>
-
