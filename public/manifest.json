@@ -1,6 +1,6 @@
 {
   "short_name": "SHINEDEV",
-  "name": "SHINEDEV | Web Developer",
+  "name": "SHINEDEV | Web Service",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#0f0f23",
-  "background_color": "#0f0f23"
+  "theme_color": "#0a192f",
+  "background_color": "#0a192f"
 }
