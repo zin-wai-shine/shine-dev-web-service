@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaBars, FaTimes, FaHome, FaUser, FaCogs, FaFolderOpen, FaEnvelope, FaWhatsapp, FaTelegramPlane, FaLine } from 'react-icons/fa';
+import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,15 +13,29 @@ const Navbar = () => {
       
       // Detect active section
       const sections = ['home', 'about', 'services', 'projects', 'contact'];
-      const scrollPosition = window.scrollY + 200;
+      const scrollPosition = window.scrollY + window.innerHeight / 3;
       
-      for (const section of sections) {
+      // Check if contact section is visible or near bottom of page
+      const contactElement = document.getElementById('contact');
+      if (contactElement) {
+        const contactTop = contactElement.offsetTop;
+        const isNearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 200;
+        const isContactVisible = window.scrollY + window.innerHeight / 2 >= contactTop;
+        
+        if (isNearBottom || isContactVisible) {
+          setActiveSection('contact');
+          return;
+        }
+      }
+      
+      // Check other sections (reverse order to prioritize later sections)
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
         const element = document.getElementById(section);
         if (element) {
           const offsetTop = element.offsetTop;
-          const offsetHeight = element.offsetHeight;
           
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+          if (scrollPosition >= offsetTop) {
             setActiveSection(section);
             break;
           }
@@ -69,7 +84,7 @@ const Navbar = () => {
             </a>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-6">
               {navLinks.map((link, index) => {
                 const sectionId = link.href.replace('#', '');
                 const isActive = activeSection === sectionId;
@@ -90,27 +105,31 @@ const Navbar = () => {
                   </a>
                 );
               })}
+              <ThemeToggle />
               <a href="#contact" className="btn-primary text-sm">
                 Get Quote
               </a>
             </div>
 
-            {/* Mobile Menu Button */}
-            <button
-              type="button"
-              onClick={() => setIsOpen(true)}
-              className={`md:hidden relative z-[70] w-12 h-12 flex items-center justify-center rounded-xl glass-card border-accent/30 text-accent hover:border-accent/60 transition-all duration-300 ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
-              aria-label="Open menu"
-            >
-              <FaBars className="text-2xl" />
-            </button>
+            {/* Mobile Menu Buttons */}
+            <div className="md:hidden flex items-center gap-2">
+              <ThemeToggle />
+              <button
+                type="button"
+                onClick={() => setIsOpen(true)}
+                className={`relative z-[70] w-12 h-12 flex items-center justify-center rounded-xl glass-card border-accent/30 text-accent hover:border-accent/60 transition-all duration-300 ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+                aria-label="Open menu"
+              >
+                <FaBars className="text-2xl" />
+              </button>
+            </div>
           </div>
         </div>
       </nav>
 
       {/* Backdrop */}
       <div 
-        className={`fixed inset-0 bg-black/60 z-[55] md:hidden transition-opacity duration-500 ${
+        className={`fixed inset-0 backdrop-overlay z-[55] md:hidden transition-opacity duration-500 ${
           isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
         onClick={() => setIsOpen(false)}
@@ -128,12 +147,7 @@ const Navbar = () => {
         }}
       >
         {/* Curved Background - deep to soft gradient */}
-        <div 
-          className="absolute inset-0"
-          style={{
-            background: 'linear-gradient(180deg, #1d3a5c 0%, #152a4a 30%, #112240 60%, #0d1d35 85%, #0a192f 100%)',
-          }}
-        />
+        <div className="absolute inset-0 mobile-menu-gradient" />
 
         {/* Menu Content */}
         <div className={`relative z-10 flex flex-col transition-opacity duration-300 ${

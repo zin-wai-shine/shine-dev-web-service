@@ -1,4 +1,5 @@
 import React from 'react';
+import { ThemeProvider } from './contexts/ThemeContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -11,18 +12,20 @@ import './index.css';
 
 function App() {
   return (
-    <div className="min-h-screen bg-primary overflow-x-hidden max-w-full">
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Services />
-        <WhyChooseMe />
-        <Projects />
-        <Pricing />
-        <Contact />
-      </main>
-    </div>
+    <ThemeProvider>
+      <div className="min-h-screen bg-primary overflow-x-hidden max-w-full">
+        <Navbar />
+        <main>
+          <Hero />
+          <About />
+          <Services />
+          <WhyChooseMe />
+          <Projects />
+          <Pricing />
+          <Contact />
+        </main>
+      </div>
+    </ThemeProvider>
   );
 }
 

@@ -4,16 +4,31 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
     "./public/index.html"
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        primary: '#0a192f',
-        secondary: '#112240',
-        accent: '#64ffda',
-        highlight: '#1d3a5c',
-        soft: '#8892b0',
-        lightblue: '#a8b2d1',
-        slate: '#ccd6f6',
+        primary: {
+          DEFAULT: 'var(--color-primary)',
+        },
+        secondary: {
+          DEFAULT: 'var(--color-secondary)',
+        },
+        accent: {
+          DEFAULT: 'var(--color-accent)',
+        },
+        highlight: {
+          DEFAULT: 'var(--color-highlight)',
+        },
+        soft: {
+          DEFAULT: 'var(--color-soft)',
+        },
+        lightblue: {
+          DEFAULT: 'var(--color-lightblue)',
+        },
+        slate: {
+          DEFAULT: 'var(--color-slate)',
+        },
       },
       fontFamily: {
         heading: ['Poppins', 'sans-serif'],
