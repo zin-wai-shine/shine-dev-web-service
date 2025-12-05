@@ -78,7 +78,8 @@ const Projects = () => {
   ];
 
   // Generate 52 unique projects
-  const generateProjects = () => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const allProjects = useMemo(() => {
     const projects = [];
     const descriptions = [
       'Modern responsive website with beautiful UI/UX design',
@@ -121,9 +122,7 @@ const Projects = () => {
       });
     }
     return projects;
-  };
-
-  const allProjects = useMemo(() => generateProjects(), []);
+  }, []);
 
   // Filter projects based on search
   const filteredProjects = useMemo(() => {
