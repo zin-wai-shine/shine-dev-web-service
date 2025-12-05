@@ -2,32 +2,8 @@ import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { FaExternalLinkAlt, FaCode, FaSearch, FaChevronLeft, FaChevronRight, FaChartLine, FaUsers, FaShoppingCart, FaMobileAlt, FaGlobe, FaBuilding, FaUtensils, FaHome, FaBriefcase, FaGraduationCap, FaHeart, FaMusic, FaCamera, FaCar, FaDumbbell, FaPalette, FaBook, FaGamepad, FaPlane, FaHotel, FaCoffee, FaPizzaSlice, FaTshirt, FaGem, FaCut, FaStethoscope, FaLaptop, FaStore, FaWrench, FaTools, FaLeaf, FaDog, FaBaby, FaGift, FaBirthdayCake, FaRing, FaUmbrellaBeach, FaBicycle, FaMotorcycle, FaShip, FaTrain, FaBus, FaSubway, FaTaxi, FaTruck, FaWarehouse, FaIndustry } from 'react-icons/fa';
 import useScrollAnimation from '../hooks/useScrollAnimation';
 
-const Projects = () => {
-  const [headerRef, headerVisible] = useScrollAnimation(0.2);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [cardsPerPage, setCardsPerPage] = useState(3);
-  const projectsGridRef = useRef(null);
-
-  // Update cards per page based on screen size
-  useEffect(() => {
-    const updateCardsPerPage = () => {
-      if (window.innerWidth < 768) {
-        setCardsPerPage(1); // Mobile: 1 card per page
-      } else if (window.innerWidth < 1024) {
-        setCardsPerPage(2); // Tablet: 2 cards per page
-      } else {
-        setCardsPerPage(3); // Desktop: 3 cards per page
-      }
-    };
-
-    updateCardsPerPage();
-    window.addEventListener('resize', updateCardsPerPage);
-    return () => window.removeEventListener('resize', updateCardsPerPage);
-  }, []);
-
-  // Business types with icons and colors
-  const businessTypes = [
+// Business types with icons and colors (constant, defined outside component)
+const businessTypes = [
     { name: 'Cafe', icon: FaCoffee, color: 'from-amber-500 to-orange-500', bg: 'from-amber-500/20 to-orange-500/10' },
     { name: 'Restaurant', icon: FaUtensils, color: 'from-red-500 to-rose-500', bg: 'from-red-500/20 to-rose-500/10' },
     { name: 'Pizza Shop', icon: FaPizzaSlice, color: 'from-orange-500 to-red-500', bg: 'from-orange-500/20 to-red-500/10' },
@@ -75,10 +51,33 @@ const Projects = () => {
     { name: 'Web Agency', icon: FaGlobe, color: 'from-cyan-600 to-blue-600', bg: 'from-cyan-600/20 to-blue-600/10' },
     { name: 'Consulting', icon: FaChartLine, color: 'from-indigo-600 to-blue-600', bg: 'from-indigo-600/20 to-blue-600/10' },
     { name: 'SaaS Platform', icon: FaUsers, color: 'from-violet-600 to-purple-600', bg: 'from-violet-600/20 to-purple-600/10' },
-  ];
+];
+
+const Projects = () => {
+  const [headerRef, headerVisible] = useScrollAnimation(0.2);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [cardsPerPage, setCardsPerPage] = useState(3);
+  const projectsGridRef = useRef(null);
+
+  // Update cards per page based on screen size
+  useEffect(() => {
+    const updateCardsPerPage = () => {
+      if (window.innerWidth < 768) {
+        setCardsPerPage(1); // Mobile: 1 card per page
+      } else if (window.innerWidth < 1024) {
+        setCardsPerPage(2); // Tablet: 2 cards per page
+      } else {
+        setCardsPerPage(3); // Desktop: 3 cards per page
+      }
+    };
+
+    updateCardsPerPage();
+    window.addEventListener('resize', updateCardsPerPage);
+    return () => window.removeEventListener('resize', updateCardsPerPage);
+  }, []);
 
   // Generate 52 unique projects
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const allProjects = useMemo(() => {
     const projects = [];
     const descriptions = [
