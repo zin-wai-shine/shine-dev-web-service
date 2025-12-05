@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaBars, FaTimes, FaHome, FaUser, FaCogs, FaFolderOpen, FaEnvelope, FaWhatsapp, FaTelegramPlane, FaLine } from 'react-icons/fa';
+import { FaBars, FaTimes, FaHome, FaUser, FaCogs, FaFolderOpen, FaEnvelope, FaWhatsapp, FaTelegramPlane, FaLine, FaTag } from 'react-icons/fa';
 import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
@@ -12,7 +12,7 @@ const Navbar = () => {
       setScrolled(window.scrollY > 50);
       
       // Detect active section
-      const sections = ['home', 'about', 'services', 'projects', 'contact'];
+      const sections = ['home', 'about', 'services', 'projects', 'pricing', 'contact'];
       const scrollPosition = window.scrollY + window.innerHeight / 3;
       
       // Check if contact section is visible or near bottom of page
@@ -65,6 +65,7 @@ const Navbar = () => {
     { name: 'Story', href: '#about', icon: FaUser },
     { name: 'Services', href: '#services', icon: FaCogs },
     { name: 'Works', href: '#projects', icon: FaFolderOpen },
+    { name: 'Pricing', href: '#pricing', icon: FaTag },
     { name: 'Let\'s Talk', href: '#contact', icon: FaEnvelope },
   ];
 
@@ -84,43 +85,53 @@ const Navbar = () => {
             </a>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-6">
-              {navLinks.map((link, index) => {
-                const sectionId = link.href.replace('#', '');
-                const isActive = activeSection === sectionId;
-                
-                return (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    className={`relative font-medium transition-colors duration-300 group ${
-                      isActive ? 'text-accent' : 'text-soft hover:text-accent'
-                    }`}
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    {link.name}
-                    <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-accent to-sky-400 transition-all duration-300 ${
-                      isActive ? 'w-full' : 'w-0 group-hover:w-full'
-                    }`} />
-                  </a>
-                );
-              })}
-              <ThemeToggle />
-              <a href="#contact" className="btn-primary text-sm">
-                Get Quote
-              </a>
+            <div className="hidden md:flex items-center gap-8">
+              {/* Navigation Links */}
+              <div className="flex items-center space-x-6">
+                {navLinks.map((link, index) => {
+                  const sectionId = link.href.replace('#', '');
+                  const isActive = activeSection === sectionId;
+                  
+                  return (
+                    <a
+                      key={link.name}
+                      href={link.href}
+                      className={`relative font-medium transition-colors duration-300 group ${
+                        isActive ? 'text-accent' : 'text-soft hover:text-accent'
+                      }`}
+                      style={{ animationDelay: `${index * 100}ms` }}
+                    >
+                      {link.name}
+                      <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-accent to-sky-400 transition-all duration-300 ${
+                        isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                      }`} />
+                    </a>
+                  );
+                })}
+              </div>
+              
+              {/* Right side buttons */}
+              <div className="flex items-center gap-3 pl-4 border-l border-accent/20">
+                <ThemeToggle />
+                <a href="#contact" className="btn-primary text-sm px-6 py-2.5 whitespace-nowrap">
+                  Get Quote
+                </a>
+              </div>
             </div>
 
             {/* Mobile Menu Buttons */}
             <div className="md:hidden flex items-center gap-2">
               <ThemeToggle />
+              <a href="#contact" className="btn-primary text-xs px-4 py-2 whitespace-nowrap">
+                Get Quote
+              </a>
               <button
                 type="button"
                 onClick={() => setIsOpen(true)}
-                className={`relative z-[70] w-12 h-12 flex items-center justify-center rounded-xl glass-card border-accent/30 text-accent hover:border-accent/60 transition-all duration-300 ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+                className={`relative z-[70] w-10 h-10 flex items-center justify-center rounded-lg glass-card border-accent/30 text-accent hover:border-accent/60 hover:bg-accent/10 transition-all duration-300 ${isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
                 aria-label="Open menu"
               >
-                <FaBars className="text-2xl" />
+                <FaBars className="text-xl" />
               </button>
             </div>
           </div>
