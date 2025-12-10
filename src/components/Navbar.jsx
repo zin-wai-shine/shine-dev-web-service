@@ -139,10 +139,12 @@ const Navbar = () => {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <a href="/home" onClick={(e) => scrollToSection(e, 'home')} className="flex items-center space-x-2 group relative z-[70]">
-              <span className="text-2xl font-heading font-bold tracking-wider">
-                <span className="text-slate">SHINE</span>
-                <span className="gradient-text">DEV</span>
-              </span>
+              <div className="logo-text-wrapper relative">
+                <span className="text-xl md:text-2xl font-heading font-black tracking-[0.15em] logo-text">
+                  HAIZO
+                </span>
+                <div className="absolute inset-0 logo-glow opacity-60 blur-md"></div>
+              </div>
             </a>
 
             {/* Desktop Navigation */}
@@ -229,10 +231,12 @@ const Navbar = () => {
           
           {/* Header with Close Button */}
           <div className="flex items-center justify-between px-6 pt-6">
-            <span className="text-xl font-heading font-bold tracking-wider">
-              <span className="text-slate">SHINE</span>
-              <span className="gradient-text">DEV</span>
-            </span>
+            <div className="logo-text-wrapper relative">
+              <span className="text-lg font-heading font-black tracking-[0.15em] logo-text">
+                HAIZO
+              </span>
+              <div className="absolute inset-0 logo-glow opacity-60 blur-md"></div>
+            </div>
             <button
               type="button"
               onClick={(e) => {
