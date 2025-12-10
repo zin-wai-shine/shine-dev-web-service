@@ -3,6 +3,16 @@ import { FaLaptopCode, FaWrench, FaRocket, FaCogs, FaCheckCircle } from 'react-i
 import useScrollAnimation from '../hooks/useScrollAnimation';
 
 const Services = () => {
+  // Helper function to scroll to section and update URL to /sectionId
+  const scrollToSection = (e, sectionId) => {
+    e.preventDefault();
+    const element = document.getElementById(sectionId);
+    if (element) {
+      // Update URL to /sectionId (e.g., /home, /about)
+      window.history.pushState({ section: sectionId }, '', `/${sectionId}`);
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
   const [headerRef, headerVisible] = useScrollAnimation(0.2);
   const [cardsRef, cardsVisible] = useScrollAnimation(0.1);
 
@@ -178,7 +188,7 @@ const Services = () => {
           }`}
         >
           <p className="text-soft text-lg mb-6">Need something specific or have questions?</p>
-          <a href="#contact" className="btn-primary inline-flex items-center justify-center gap-2 group relative overflow-hidden">
+          <a href="/contact" onClick={(e) => scrollToSection(e, 'contact')} className="btn-primary inline-flex items-center justify-center gap-2 group relative overflow-hidden">
             <span className="relative z-10">Get Custom Quote</span>
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </a>

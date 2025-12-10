@@ -1,6 +1,16 @@
 import React from 'react';
 
 const Hero = () => {
+  // Helper function to scroll to section and update URL to /sectionId
+  const scrollToSection = (e, sectionId) => {
+    e.preventDefault();
+    const element = document.getElementById(sectionId);
+    if (element) {
+      // Update URL to /sectionId (e.g., /home, /about)
+      window.history.pushState({ section: sectionId }, '', `/${sectionId}`);
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
   // Generate random stars - matching About page count and pattern
   const stars = Array.from({ length: 40 }, (_, i) => ({
     id: i,
@@ -81,11 +91,11 @@ const Hero = () => {
 
           {/* Enhanced CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" style={{ animationDelay: '0.6s' }}>
-            <a href="#contact" className="btn-primary inline-flex items-center justify-center gap-2 group relative overflow-hidden">
+            <a href="/contact" onClick={(e) => scrollToSection(e, 'contact')} className="btn-primary inline-flex items-center justify-center gap-2 group relative overflow-hidden">
               <span className="relative z-10">Get Your Website Today</span>
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </a>
-            <a href="#services" className="btn-outline group relative overflow-hidden">
+            <a href="/services" onClick={(e) => scrollToSection(e, 'services')} className="btn-outline group relative overflow-hidden">
               <span className="relative z-10">View Services</span>
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
             </a>
@@ -95,7 +105,7 @@ const Hero = () => {
 
       {/* Enhanced Scroll indicator */}
       <div className="absolute bottom-4 md:bottom-8 left-0 right-0 z-10 flex justify-center">
-        <a href="#about" className="group flex flex-col items-center gap-2 cursor-pointer">
+        <a href="/about" onClick={(e) => scrollToSection(e, 'about')} className="group flex flex-col items-center gap-2 cursor-pointer">
           <span className="text-soft/70 text-xs font-mono tracking-widest uppercase group-hover:text-accent transition-all duration-300 group-hover:scale-110">
             Scroll
           </span>

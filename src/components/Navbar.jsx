@@ -24,11 +24,16 @@ const Navbar = () => {
         
         if (isNearBottom || isContactVisible) {
           setActiveSection('contact');
+          // Update URL to /contact without triggering scroll
+          if (window.location.pathname !== '/contact') {
+            window.history.replaceState({ section: 'contact' }, '', '/contact');
+          }
           return;
         }
       }
       
       // Check other sections (reverse order to prioritize later sections)
+      let activeSectionFound = null;
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
         const element = document.getElementById(section);
@@ -36,9 +41,21 @@ const Navbar = () => {
           const offsetTop = element.offsetTop;
           
           if (scrollPosition >= offsetTop) {
+            activeSectionFound = section;
             setActiveSection(section);
+            // Update URL to /section without triggering scroll
+            if (window.location.pathname !== `/${section}`) {
+              window.history.replaceState({ section: section }, '', `/${section}`);
+            }
             break;
           }
+        }
+      }
+      
+      // If no section found and we're at the top, update URL to /
+      if (!activeSectionFound && window.scrollY < 100) {
+        if (window.location.pathname !== '/') {
+          window.history.replaceState(null, '', '/');
         }
       }
     };
@@ -46,6 +63,39 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Check on mount
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Handle browser back/forward buttons
+  useEffect(() => {
+    const handlePopState = (e) => {
+      const path = window.location.pathname.slice(1); // Remove leading /
+      if (path) {
+        const element = document.getElementById(path);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      } else {
+        // If no path, scroll to top
+        window.scrollTo(0, 0);
+      }
+    };
+    
+    window.addEventListener('popstate', handlePopState);
+    
+    // Check if URL has a path and scroll to that section on mount
+    const currentPath = window.location.pathname.slice(1);
+    if (currentPath) {
+      const element = document.getElementById(currentPath);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    }
+    
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
   }, []);
 
   // Prevent body scroll when menu is open
@@ -60,13 +110,24 @@ const Navbar = () => {
     };
   }, [isOpen]);
 
+  // Helper function to scroll to section and update URL to /sectionId
+  const scrollToSection = (e, sectionId) => {
+    e.preventDefault();
+    const element = document.getElementById(sectionId);
+    if (element) {
+      // Update URL to /sectionId (e.g., /home, /about)
+      window.history.pushState({ section: sectionId }, '', `/${sectionId}`);
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   const navLinks = [
-    { name: 'Hello', href: '#home', icon: FaHome },
-    { name: 'Story', href: '#about', icon: FaUser },
-    { name: 'Services', href: '#services', icon: FaCogs },
-    { name: 'Works', href: '#projects', icon: FaFolderOpen },
-    { name: 'Pricing', href: '#pricing', icon: FaTag },
-    { name: 'Let\'s Talk', href: '#contact', icon: FaEnvelope },
+    { name: 'Hello', href: 'home', icon: FaHome },
+    { name: 'Story', href: 'about', icon: FaUser },
+    { name: 'Services', href: 'services', icon: FaCogs },
+    { name: 'Works', href: 'projects', icon: FaFolderOpen },
+    { name: 'Pricing', href: 'pricing', icon: FaTag },
+    { name: 'Let\'s Talk', href: 'contact', icon: FaEnvelope },
   ];
 
   return (
@@ -77,7 +138,7 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <a href="#home" className="flex items-center space-x-2 group relative z-[70]">
+            <a href="/home" onClick={(e) => scrollToSection(e, 'home')} className="flex items-center space-x-2 group relative z-[70]">
               <span className="text-2xl font-heading font-bold tracking-wider">
                 <span className="text-slate">SHINE</span>
                 <span className="gradient-text">DEV</span>
@@ -89,13 +150,14 @@ const Navbar = () => {
               {/* Navigation Links */}
               <div className="flex items-center space-x-6">
                 {navLinks.map((link, index) => {
-                  const sectionId = link.href.replace('#', '');
+                  const sectionId = link.href;
                   const isActive = activeSection === sectionId;
                   
                   return (
                     <a
                       key={link.name}
-                      href={link.href}
+                      href={`/${link.href}`}
+                      onClick={(e) => scrollToSection(e, link.href)}
                       className={`relative font-medium transition-colors duration-300 group ${
                         isActive ? 'text-accent' : 'text-soft hover:text-accent'
                       }`}
@@ -113,7 +175,7 @@ const Navbar = () => {
               {/* Right side buttons */}
               <div className="flex items-center gap-3 pl-4 border-l border-accent/20">
                 <ThemeToggle />
-                <a href="#contact" className="btn-primary text-sm px-6 py-2.5 whitespace-nowrap">
+                <a href="/contact" onClick={(e) => scrollToSection(e, 'contact')} className="btn-primary text-sm px-6 py-2.5 whitespace-nowrap">
                   Get Quote
                 </a>
               </div>
@@ -122,7 +184,7 @@ const Navbar = () => {
             {/* Mobile Menu Buttons */}
             <div className="md:hidden flex items-center gap-2">
               <ThemeToggle />
-              <a href="#contact" className="btn-primary text-xs px-4 py-2 whitespace-nowrap">
+              <a href="/contact" onClick={(e) => scrollToSection(e, 'contact')} className="btn-primary text-xs px-4 py-2 whitespace-nowrap">
                 Get Quote
               </a>
               <button
@@ -189,14 +251,17 @@ const Navbar = () => {
           <div className="px-6 pt-2">
             <div className="grid grid-cols-3 gap-2">
               {navLinks.map((link, index) => {
-                const sectionId = link.href.replace('#', '');
+                const sectionId = link.href;
                 const isActive = activeSection === sectionId;
                 
                 return (
                   <a
                     key={link.name}
-                    href={link.href}
-                    onClick={() => setIsOpen(false)}
+                    href={`/${link.href}`}
+                    onClick={(e) => {
+                      scrollToSection(e, link.href);
+                      setIsOpen(false);
+                    }}
                     className={`group flex flex-col items-center gap-1.5 py-3 px-2 rounded-2xl 
                                text-xs font-heading font-medium transition-all duration-300
                                ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}
@@ -218,8 +283,11 @@ const Navbar = () => {
               
               {/* CTA in grid */}
               <a 
-                href="#contact" 
-                onClick={() => setIsOpen(false)}
+                href="/contact"
+                onClick={(e) => {
+                  scrollToSection(e, 'contact');
+                  setIsOpen(false);
+                }}
                 className={`group flex flex-col items-center gap-1.5 py-3 px-2 rounded-2xl 
                            text-xs font-heading font-medium text-primary
                            bg-gradient-to-br from-accent to-sky-400 hover:shadow-lg hover:shadow-accent/30

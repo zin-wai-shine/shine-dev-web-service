@@ -36,6 +36,8 @@ const Pricing = () => {
     setTimeout(() => {
       const contactSection = document.getElementById('contact');
       if (contactSection) {
+        // Update URL to /contact
+        window.history.pushState({ section: 'contact' }, '', '/contact');
         contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }, 100);
@@ -274,7 +276,16 @@ const Pricing = () => {
                   <span className="relative z-10">Detail</span>
                 </button>
                 <a
-                  href="#contact"
+                  href="/contact"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const contactSection = document.getElementById('contact');
+                    if (contactSection) {
+                      // Update URL to /contact
+                      window.history.pushState({ section: 'contact' }, '', '/contact');
+                      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
                   className={`group relative w-28 h-10 flex items-center justify-center gap-1.5 rounded-xl font-semibold transition-all duration-300 text-xs 
                             shadow-lg hover:shadow-xl hover:scale-105 overflow-hidden
                             ${plan.popular 
@@ -330,7 +341,15 @@ const Pricing = () => {
           <p className="text-soft/70 text-sm md:text-base mb-4">
             * Final price depends on specific requirements. Contact me for a custom quote.
           </p>
-          <a href="#contact" className="btn-outline inline-flex items-center justify-center gap-2 group relative overflow-hidden">
+          <a href="/contact" onClick={(e) => {
+            e.preventDefault();
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+              // Update URL to /contact
+              window.history.pushState({ section: 'contact' }, '', '/contact');
+              contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }} className="btn-outline inline-flex items-center justify-center gap-2 group relative overflow-hidden">
             <span className="relative z-10">Get Custom Quote</span>
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
           </a>
